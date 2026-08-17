@@ -1,0 +1,8 @@
+PortType="serial"
+PortPath="/dev/ttyS0"
+PortBaudRate="9600"
+PortEnabled="1"
+DeviceA="Generic"
+EnableNMEALogger="1"
+ShowMenuButton="1"
+ShowZoomButton="1"

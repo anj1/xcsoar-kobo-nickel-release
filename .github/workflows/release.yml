@@ -1,0 +1,60 @@
+name: Build Kobo release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      xcsoar_ref:
+        description: XCSoar branch or commit to build
+        required: true
+        default: kobo-clara-colour-gcc14
+      nickel_image:
+        description: Published NickelTC GCC 14 image
+        required: true
+        default: ghcr.io/anj1/nickeltc-gcc14:gcc14-v1
+      release_tag:
+        description: Tag to create for a manually dispatched release
+        required: true
+        default: v0.0.0-manual
+
+permissions:
+  contents: write
+
+env:
+  XCSOAR_REPOSITORY: anj1/XCSoar
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out packaging repository
+        uses: actions/checkout@v4
+
+      - name: Check out XCSoar
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.XCSOAR_REPOSITORY }}
+          ref: ${{ inputs.xcsoar_ref || 'kobo-clara-colour-gcc14' }}
+          path: XCSoar
+          fetch-depth: 0
+
+      - name: Select toolchain image
+        run: echo "IMAGE=${{ inputs.nickel_image || 'ghcr.io/anj1/nickeltc-gcc14:gcc14-v1' }}" >> "$GITHUB_ENV"
+
+      - name: Build and package
+        env:
+          RELEASE_VERSION: ${{ github.event_name == 'push' && github.ref_name || inputs.release_tag }}
+          XCSOAR_DIR: ${{ github.workspace }}/XCSoar
+        run: |
+          ./scripts/build-xcsoar.sh
+          ./scripts/package-xcsoar.sh
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.event_name == 'push' && github.ref_name || inputs.release_tag }}" \
+            dist/*.zip dist/*.sha256 \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes
