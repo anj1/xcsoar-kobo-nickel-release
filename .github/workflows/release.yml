@@ -12,7 +12,7 @@ on:
       nickel_image:
         description: Published NickelTC GCC 14 image
         required: true
-        default: ghcr.io/anj1/nickeltc-gcc14:gcc14-v1
+        default: ghcr.io/anj1/nickeltc-gcc14:sha-6da75a292ebb40855cde651b910c36d975b154f7
       release_tag:
         description: Tag to create for a manually dispatched release
         required: true
@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 0
 
       - name: Select toolchain image
-        run: echo "IMAGE=${{ inputs.nickel_image || 'ghcr.io/anj1/nickeltc-gcc14:gcc14-v1' }}" >> "$GITHUB_ENV"
+        run: echo "IMAGE=${{ inputs.nickel_image || 'ghcr.io/anj1/nickeltc-gcc14:sha-6da75a292ebb40855cde651b910c36d975b154f7' }}" >> "$GITHUB_ENV"
 
       - name: Build and package
         env:

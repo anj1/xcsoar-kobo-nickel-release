@@ -10,7 +10,7 @@ The simplest install is to just use the binary release directly. You need to ins
 
 ### Installing NickelMenu
 
-Download KoboRoot.tgz from the following like and place it in the .kobo folder on your kobo.
+Download KoboRoot.tgz from the following link and place it in the .kobo folder on your kobo.
 
 https://github.com/jadehawk/Kobo-Essentials/tree/main/02%20-%20NickelMenu/Build%20%23775%20-%20GDrive%20Enabled/NickelMenu
 
@@ -23,9 +23,9 @@ menu_item :main :XCSoar :cmd_spawn :quiet:/mnt/onboard/.adds/xcsoar/run.sh
 menu_item :main :Stop XCSoar :cmd_spawn :quiet:/mnt/onboard/.adds/xcsoar/stop.sh
 ```
 
-Finally, download the xcsoar build artifact from this repo, and unzip it into .adds/xcsoar. You should have the binary at .adds/xcsoar/xcsoar, the lib folder at .adds/xcsoar/lib, etc.
+Finally, download the xcsoar build artifact from the [releases](https://github.com/anj1/xcsoar-kobo-nickel-release/releases/new) page of this repo, and unzip it into .adds/xcsoar. You should have the binary at .adds/xcsoar/xcsoar, the lib folder at .adds/xcsoar/lib, etc.
 
-Then XCSoar should pop up in the nickel menu and it will run. Enjoy!
+Then XCSoar should pop up in the nickel menu and it will run. Happy flying!
 
 ## Building XCSoar locally
 
@@ -46,7 +46,7 @@ XCSOAR_DIR=/path/to/XCSoar \
 By default the scripts use the local image `nickeltc-gcc14`. Select another image with `IMAGE`, preferably a versioned image published by the NickelTC release workflow:
 
 ```sh
-IMAGE=ghcr.io/anj1/nickeltc-gcc14:2026-08-13 ./scripts/build-xcsoar.sh
+IMAGE=ghcr.io/anj1/nickeltc-gcc14:sha-6da75a292ebb40855cde651b910c36d975b154f7 ./scripts/build-xcsoar.sh
 ```
 
 The package script writes a versioned ZIP to `dist/` and a matching unpacked directory. Override `RELEASE_VERSION` for local builds; CI derives it from the Git tag.
