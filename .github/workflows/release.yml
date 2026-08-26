@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 0
 
       - name: Select toolchain image
-        run: echo "IMAGE=${{ inputs.nickel_image || 'ghcr.io/anj1/nickeltc-gcc14:sha-6da75a292ebb40855cde651b910c36d975b154f7' }}" >> "$GITHUB_ENV"
+        run: echo "IMAGE=${{ inputs.nickel_image || 'ghcr.io/anj1/nickeltc-gcc14:sha-fcf553ad9f1c2b197dc05b82cccdc07c88107094' }}" >> "$GITHUB_ENV"
 
       - name: Build and package
         env:
