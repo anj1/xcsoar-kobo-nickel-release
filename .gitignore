@@ -1,4 +1,6 @@
 dist/
+dist-qt6/
+__pycache__/
 build/
 *.log
 .DS_Store
