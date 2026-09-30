@@ -74,6 +74,8 @@ Eject the Kobo, restart NickelMenu, and launch XCSoar from the main menu. The fi
 
 Pushing a tag matching `vX.Y.Z` runs the GitHub Actions release workflow. It checks out the configured XCSoar branch, builds with the configured NickelTC image, packages the binary, and attaches the ZIP and checksum to the GitHub release.
 
+The default GNSS configuration is the owner's existing `/dev/ttyS0`, 9600 baud, Generic driver. First launch installs the packaged profile only when `/mnt/onboard/XCSoarData/profiles/default.prf` is absent. Existing root-level `default.prf` is moved into `profiles/` if that path is free. If both exist, the root-level copy is retained as `default.prf.legacy` (or a numbered variant) so it no longer appears as a second profile at startup. The launcher passes its data directory to XCSoar explicitly. `GNSS_SERIAL_PORT` selects the UART and is also written into a newly installed profile. With an existing profile, its `PortPath` must match that setting; mismatches fail with a diagnostic instead of overwriting user configuration. Confirm receiver wiring and baud rate on the actual device. UART lifecycle management covers this selected port; additional ports or alternate profiles need corresponding configuration and validation.
+
 The release archive contains the XCSoar executable, launch/stop scripts, FBInk's shared library, DejaVu fonts, and the default GNSS profile. It does not contain the toolchain, source checkout, or development/test applications.
 
 For optional SSH deployment, set the target explicitly before running the helper:

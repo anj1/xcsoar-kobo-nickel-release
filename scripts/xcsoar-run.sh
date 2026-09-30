@@ -126,7 +126,8 @@ cd "$APPDIR"
   install_default_profile
   pause_serial_getty
   pause_nickel
-  ./xcsoar ${XCSOAR_ARGS:-} &
+  # XCSOAR_ARGS is intentionally a whitespace-separated argument list.
+  ./xcsoar "-datapath=$DATADIR" ${XCSOAR_ARGS:-} &
   echo "$!" > "$CHILDPIDFILE"
   set +e
   wait "$!"
